@@ -2,7 +2,12 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const eventsRoute = require('./routes/eventsRoute')
+const authRoute = require('./routes/authRoute')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
+
+// cookie parser to work with cookies
+app.use(cookieParser())
 
 // connecting to the db
 mongoose.connect(process.env.DB_ACCESS)
@@ -11,6 +16,7 @@ mongoose.connect(process.env.DB_ACCESS)
 
 // routes middlewares
 app.use('/api/events', eventsRoute)
+app.use('/api/auth', authRoute)
 
 // starting the server
 app.listen(5000, () => {

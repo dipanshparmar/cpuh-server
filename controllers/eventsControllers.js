@@ -28,7 +28,7 @@ async function createNewEvent(req, res) {
 
   // if there is an error then  sending that as a response
   if (error) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       message: error.details[0].message
     })
@@ -63,7 +63,7 @@ async function updateAnEvent(req, res) {
 
   // if there is an error then  sending that as a response
   if (error) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       message: error.details[0].message
     })
@@ -84,7 +84,7 @@ async function updateAnEvent(req, res) {
 
     // if no event found then throw an error
     if (!event) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'No event found with such id.'
       })
@@ -115,7 +115,7 @@ async function deleteAnEvent(req, res) {
 
     // if no event is found then throw an error
     if (!event) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: 'No event found with this id'
       })
