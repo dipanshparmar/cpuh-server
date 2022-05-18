@@ -5,6 +5,12 @@ const eventsRoute = require('./routes/eventsRoute')
 const authRoute = require('./routes/authRoute')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
+
+// cors
+app.use(cors({
+  origin: 'http://localhost:3000'
+}))
 
 // cookie parser to work with cookies
 app.use(cookieParser())
