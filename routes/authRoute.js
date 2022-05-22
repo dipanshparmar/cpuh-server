@@ -12,7 +12,7 @@ router.post('/login', login)
 // route to update the password
 router.use(authMiddleware) // checking if the user is logged before allowing him/her to update the password
 router.post('/update-pass', updatePassword)
-
+  
 // route to update the username
 router.post('/update-username', updateUsername)
 

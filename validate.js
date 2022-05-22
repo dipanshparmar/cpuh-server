@@ -4,10 +4,10 @@ const Joi = require('joi')
 function validateEvent(day, title, description, imageUrl, isFestival) {
   // creating the schema
   const schema = Joi.object({
-    day: Joi.string().trim().min(10).max(10),
+    day: Joi.string().trim().min(10).max(10).allow(''),
     title: Joi.string().trim().required().min(3).max(255),
-    description: Joi.string().trim().min(3).max(1048),
-    imageUrl: Joi.string().trim(),
+    description: Joi.string().trim().min(3).max(1048).allow(''),
+    imageUrl: Joi.string().trim().allow(''),
     isFestival: Joi.boolean().required()
   })
 

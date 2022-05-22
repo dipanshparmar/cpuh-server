@@ -72,19 +72,24 @@ async function login(req, res) {
 // function to update the password
 async function updatePassword(req, res) {
   // getting the data
-  const { existingPassword, newPassword } = req.body
+  const { existingPassword, newPassword, confirmNewPassword } = req.body
 
-  // getting teh username
-  const username = req.username
+  // validating passwords
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).json({
+      success: false,
+      message: 'Passwords do not match!'
+    })
+  }
 
   // finding an account with the username
-  const account = await Admin.findOne({username: username})
+  const account = await Admin.findOne({})
 
   // if no account is found then return
   if (!account) {
     return res.status(400).json({
       success: false,
-      message: 'Invalid username!'
+      message: 'Account could not be located!'
     })
   }
 
@@ -104,7 +109,7 @@ async function updatePassword(req, res) {
 
   // if there is an error then return
   if (error) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       message: error.details[0].message
     })
@@ -131,34 +136,23 @@ async function updatePassword(req, res) {
 
 // function to update the username
 async function updateUsername(req, res) {
-  // getting the username
-  const username = req.username
-
   // getting the new username
   const { newUsername } = req.body
 
   try {
-    // finding an acocunt with the username
-    const account = await Admin.findOne({username: username})
-
-    // if account is not found then return
-    if (!account) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid username!'
-      })
-    }
-
     // validating new username
     const { error } = validateLogin(newUsername, 'password') // 'password' is just a placeholder here  
     
     // if there is an error then return
     if (error) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: error.details[0].message
       })
     }
+
+    // finding an acocunt with the username
+    const account = await Admin.findOne()
 
     // updating the username
     account.username = newUsername

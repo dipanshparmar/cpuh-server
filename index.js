@@ -9,7 +9,8 @@ const cors = require('cors')
 
 // cors
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'http://localhost:3000',
+  credentials: true,
 }))
 
 // cookie parser to work with cookies

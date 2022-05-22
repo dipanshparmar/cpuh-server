@@ -19,6 +19,26 @@ async function getEvents(req, res) {
   }
 }
 
+async function getEvent(req, res) {
+  const { id } = req.params
+
+  try {
+    // getting all the events
+    const event = await Event.findById(id)
+
+    // return the events
+    return res.status(200).json({
+      success: true,
+      data: event
+    })
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'Server error! Please try again later'
+    })
+  }
+}
+
 async function createNewEvent(req, res) {
   // getting the info from the req
   const { day, title, description, imageUrl, isFestival } = req.body
@@ -90,9 +110,12 @@ async function updateAnEvent(req, res) {
       })
     }
 
+    // getting all the events
+    const events = await Event.find()
+
     return res.status(200).json({
       success: true,
-      message: 'Event updated successfully!'
+      data: events
     })
   } catch (err) {
     console.log(err)
@@ -121,10 +144,13 @@ async function deleteAnEvent(req, res) {
       })
     }
 
+    // getting the events
+    const events = await Event.find()
+
     // if event found then show the success message
     return res.status(200).json({
       success: true,
-      message: 'Event deleted successfully'
+      data: events
     })
   } catch (err) {
     console.log(err)
@@ -136,4 +162,4 @@ async function deleteAnEvent(req, res) {
   }
 }
 
-module.exports = { getEvents, createNewEvent, updateAnEvent, deleteAnEvent }
+module.exports = { getEvents, getEvent, createNewEvent, updateAnEvent, deleteAnEvent }
