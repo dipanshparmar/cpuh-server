@@ -6,11 +6,11 @@ const authMiddleware = require('../middlewares/authMiddleware')
 // using json parser to extract the json data
 router.use(express.json())
 
-// using the auth middleware
-router.use(authMiddleware)
-
 // route to get the events
 router.get('/', getEvents)
+
+// using the auth middleware
+router.use(authMiddleware)
 
 // route to get a single event
 router.get('/:id', getEvent)
