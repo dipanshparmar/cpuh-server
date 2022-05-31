@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getEvents, createNewEvent, updateAnEvent, deleteAnEvent, getEvent } = require('../controllers/eventsControllers')
+const { getEvents, createNewEvent, updateAnEvent, deleteAnEvent, getEvent, deleteEvents } = require('../controllers/eventsControllers')
 const authMiddleware = require('../middlewares/authMiddleware')
 
 // using json parser to extract the json data
@@ -23,5 +23,8 @@ router.patch('/:id', updateAnEvent)
 
 // route to delete an event
 router.delete('/:id', deleteAnEvent)
+
+// route to delete all the events
+router.delete('/', deleteEvents)
 
 module.exports = router

@@ -162,4 +162,23 @@ async function deleteAnEvent(req, res) {
   }
 }
 
-module.exports = { getEvents, getEvent, createNewEvent, updateAnEvent, deleteAnEvent }
+// function to delete all the events
+async function deleteEvents(req, res) {
+  // deleting all the events
+  try {
+    const events = await Event.deleteMany({})
+
+    // if we were able to delete the events successfully then return a message
+    return res.status(200).json({
+      success: true,
+      message: 'Events deleted successfully!'
+    })
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error. Please try again later'
+    })
+  }
+}
+
+module.exports = { getEvents, getEvent, createNewEvent, updateAnEvent, deleteAnEvent, deleteEvents }
